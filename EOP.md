@@ -49,3 +49,5 @@ class Solution:
                 idx += 1
         return idx
 ```
+
+Keep two indices with one iterating over the list and the other one over all unique elements of the list, with each repeating element being replaced by the next unique one.
