@@ -35,3 +35,17 @@ Because binary numbers are represented through 2 being raised to power x and we 
 
           return (bool_x1 or bool_x2) and (bool_y1 or bool_y2)
   ```
+  
+[Remove Dupicates from Sorted Array-5.5](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
+```
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        idx = 1
+        for i in range(1,len(nums)):
+            if nums[i] != nums[idx-1]:
+                nums[idx] = nums[i]
+                idx += 1
+        return idx
+```
