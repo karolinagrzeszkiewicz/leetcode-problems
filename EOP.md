@@ -51,3 +51,19 @@ class Solution:
 ```
 
 Keep two indices with one iterating over the list and the other one over all unique elements of the list, with each repeating element being replaced by the next unique one.
+
+
+[Count Primes-5.9](https://leetcode.com/problems/count-primes/)
+```
+class Solution:
+    def countPrimes(self, n: int) -> int:
+        primes = 0
+        is_prime = [False, False] + [True] * (n - 1)
+        for i in range(2, n):
+            if is_prime[i]:
+                primes += 1
+                for p in range(i, n, i):
+                    is_prime[p] = False
+        return primes
+```
+  This method is called seiving. Numbers 0 and 1 are not primes. The ```is_prime``` array is an array of numbers notifying weather the number in that index is prime. We make jumps of the number equivalent to ```i``` and label them as not prime whenever we encounter a prime.
