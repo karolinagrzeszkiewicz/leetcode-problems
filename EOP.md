@@ -67,3 +67,26 @@ class Solution:
         return primes
 ```
   This method is called seiving. Numbers 0 and 1 are not primes. The ```is_prime``` array is an array of numbers notifying weather the number in that index is prime. We make jumps of the number equivalent to ```i``` and label them as not prime whenever we encounter a prime.
+
+
+[Letter Combinations of a phone number- 6.7](https://leetcode.com/problems/letter-combinations-of-a-phone-number/)
+```
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        if not digits:
+            return []
+        mapping = [0, 1, "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"]
+        menomic, partial_mneomic = [], [None] * len(digits)
+        
+        def combo_helper(digit):
+            if digit == len(digits):
+                menomic.append("".join(partial_mneomic))
+            else:
+                for char in mapping[int(digits[digit])]:
+                    partial_mneomic[digit] = char
+                    combo_helper(digit+1)
+        combo_helper(0)
+        return menomic
+```
+
+The idea is to make recursive calls each time across all combinations of a digit. There are upto 4 possible letters for each of the n digits, taking O(4^n) time for recursive calls. Each base case take O(1) time and there are n base cases, so the total time complexity is O(4^n * n).
