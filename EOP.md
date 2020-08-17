@@ -116,3 +116,7 @@ class Solution:
             init = convert(self,init)
         return init
 ```
+
+The idea is to do a string conversion each time (n-1) times. So the init is updates n-1 times until we reach the desired string. Each time the init is converted, we add the frequency of a string at index i and its values to s, eg. "One 1" refers to a frequency of 1 and value of one.
+
+Each sucessive digit can have twice as many numbers when all digits are different. The max length can have no more than 2^n digits Since there are n digits and the work in each digit is proportional to the number computed in the iteration, a simple bound on the time complexity is O(n* 2^n).
