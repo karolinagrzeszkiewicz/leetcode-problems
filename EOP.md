@@ -90,3 +90,29 @@ class Solution:
 ```
 
 The idea is to make recursive calls each time across all combinations of a digit. There are upto 4 possible letters for each of the n digits, taking O(4^n) time for recursive calls. Each base case take O(1) time and there are n base cases, so the total time complexity is O(4^n * n).
+
+[Count and Say- 6.8](https://leetcode.com/problems/count-and-say/)
+
+```
+class Solution:
+    def countAndSay(self, n: int) -> str:
+        def convert(self, n_str):
+            leng = len(n_str)
+            s = ""
+            i = 0            
+            while i < leng:
+                freq = 1
+                while (i + 1) <= len(n_str) - 1 and n_str[i] == n_str[i+1]:
+                    freq += 1
+                    i += 1
+                s += str(freq) + str(n_str[i])    
+                i += 1
+            return s
+
+        init = "1"
+        if n == 1:
+            return init
+        for i in range(n-1):
+            init = convert(self,init)
+        return init
+```
