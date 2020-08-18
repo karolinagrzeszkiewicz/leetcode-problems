@@ -147,4 +147,21 @@ class Solution:
             new_head = new_head.next
         return copy.next
 ```
+- Space Optimized Solution from EOP
+```
+class Solution:
+    def oddEvenList(self, head: ListNode) -> ListNode:
+        even, odd = ListNode(0), ListNode(0)
+        tails, turn = [even, odd], 0
+        while head:
+            tails[turn].next = head
+            head = head.next
+            tails[turn] = tails[turn].next
+            turn ^= 1
+        tails[1].next = None
+        tails[0].next = odd.next
+        return even.next
+```
+
+The idea is to have an even list and an odd list, and an oscillator turn that oscillates between 0 and 1 uisng the bit wise exclusive operatior ```^```. Eventually you combine the even and odd list together. 
 
