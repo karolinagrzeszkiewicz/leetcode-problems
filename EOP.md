@@ -1,4 +1,6 @@
-# EOP questions for 1 month
+# EOP questions From Scenario 3
+
+![Image of EOP timeline](EOP.png)
 
 [Reverse Bits-4.3](https://leetcode.com/problems/reverse-bits/submissions/)
   ```python
