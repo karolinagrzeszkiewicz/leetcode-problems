@@ -167,3 +167,20 @@ class Solution:
 
 The idea is to have an even list and an odd list, and an oscillator turn that oscillates between 0 and 1 uisng the bit wise exclusive operatior ```^```. Eventually you combine the even and odd list together. 
 
+
+- [Valid Parenthesis](https://leetcode.com/problems/valid-parentheses/)
+```
+class Solution:
+    def isValid(self, s: str) -> bool:
+        mapping = {"{": "}", "(":")", "[":"]"}
+        stack = []
+        for char in s:
+            if char in mapping.keys():
+                stack.append(char)
+            else:
+                if len(stack) == 0 or mapping[stack.pop()] != char:
+                    return False
+        return (len(stack) == 0)
+```
+
+
