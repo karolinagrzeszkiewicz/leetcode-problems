@@ -183,4 +183,55 @@ class Solution:
         return (len(stack) == 0)
 ```
 
+- [Implementing queues using stacks - 8.8](https://leetcode.com/problems/implement-queue-using-stacks/)
+
+```
+class MyQueue:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.stack1 = []
+        self.stack2 = []
+        
+    def push(self, x: int) -> None:
+        """
+        Push element x to the back of queue.
+        """
+        self.stack1.append(x)
+
+    def pop(self) -> int:
+        """
+        Removes the element from in front of queue and returns that element.
+        """
+        if len(self.stack2)!=0:
+            return self.stack2.pop()
+        else:
+            while len(self.stack1) != 0:
+                self.stack2.append(self.stack1.pop())
+            return self.stack2.pop()
+
+    def peek(self) -> int:
+        """
+        Get the front element.
+        """
+        if len(self.stack2)!=0:
+            return self.stack2[-1]
+        else:
+            while len(self.stack1) != 0:
+                self.stack2.append(self.stack1.pop())
+            return self.stack2[-1]
+        
+
+    def empty(self) -> bool:
+        """
+        Returns whether the queue is empty.
+        """
+        return (len(self.stack1) == 0 and len(self.stack2) == 0)
+
+```
+
+The idea is to have two stacks, enqueue takes O(1) time and dequeue takes O(1) time if stack 2 is not empty, else we need to transfer the elements to stack 2 from stack 1.Its impossible to solve this problem just using one stack.
+
 
