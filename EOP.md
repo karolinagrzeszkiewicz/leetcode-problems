@@ -120,3 +120,31 @@ class Solution:
 The idea is to do a string conversion each time (n-1) times. So the init is updates n-1 times until we reach the desired string. Each time the init is converted, we add the frequency of a string at index i and its values to s, eg. "One 1" refers to a frequency of 1 and value of one.
 
 Each sucessive digit can have twice as many numbers when all digits are different. The max length can have no more than 2^n digits Since there are n digits and the work in each digit is proportional to the number computed in the iteration, a simple bound on the time complexity is O(n* 2^n).
+
+
+[Odd Even Linked List- 7.10](https://leetcode.com/problems/odd-even-linked-list/submissions/)
+
+- Brute Force Solution
+```python
+class Solution:
+    def oddEvenList(self, head: ListNode) -> ListNode:
+        idx = 0
+        even = []
+        odd = []
+        while head:
+            if idx % 2 == 0:
+                even.append(head.val)
+            else:
+                odd.append(head.val)
+            head = head.next
+            idx += 1
+        total = even + odd
+        new_head = ListNode()
+        copy = new_head
+        for val in total:
+            new_node = ListNode(val)
+            new_head.next = new_node
+            new_head = new_head.next
+        return copy.next
+```
+
