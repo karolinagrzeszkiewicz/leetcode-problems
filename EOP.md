@@ -168,7 +168,7 @@ class Solution:
 The idea is to have an even list and an odd list, and an oscillator turn that oscillates between 0 and 1 uisng the bit wise exclusive operatior ```^```. Eventually you combine the even and odd list together. 
 
 
-- [Valid Parenthesis](https://leetcode.com/problems/valid-parentheses/)
+- [Valid Parenthesis - 8.3](https://leetcode.com/problems/valid-parentheses/)
 ```
 class Solution:
     def isValid(self, s: str) -> bool:
