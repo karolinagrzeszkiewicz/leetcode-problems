@@ -1,6 +1,6 @@
 # Easy Scala Problems Solved
 
-[Two Sum]()
+[Two Sum](https://leetcode.com/problems/two-sum/submissions/)
 
   - Iterative Solution
   
