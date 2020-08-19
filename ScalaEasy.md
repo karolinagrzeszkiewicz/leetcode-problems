@@ -40,3 +40,22 @@
       }
   }
   ```
+
+[Remove Duplicates from Sorted Array]() 
+
+```
+object Solution {
+    def removeDuplicates(nums: Array[Int]): Int = {
+        def check(as: Array[Int], p1: Int, p2: Int, acc: Int): Int = {
+         if (p2 >= as.length)  acc
+         else if (as(p1) == as(p2)) check(as, p1, p2 + 1, acc)
+         else {
+            as(p1 + 1) = as(p2)
+            check(as, p1 + 1, p2 + 1, acc + 1)
+        }  
+    }
+        if (nums.isEmpty) 0
+        else check(nums, 0, 0, 0) + 1
+    }
+}
+```
