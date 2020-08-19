@@ -236,3 +236,18 @@ The idea is to have two stacks, enqueue takes O(1) time and dequeue takes O(1) t
 
 
 - [Binary Tree Inorder Traversal- 9.11](https://leetcode.com/problems/binary-tree-inorder-traversal/)
+
+- Recursive Solution
+    ```
+    class Solution:
+        def inorderTraversal(self, root: TreeNode) -> List[int]:
+            return self.helper(root, [])
+
+
+        def helper(self, root, acc):
+            if root:
+                self.helper(root.left, acc)
+                acc.append(root.val)
+                self.helper(root.right, acc)
+            return acc
+    ```
