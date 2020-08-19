@@ -25,3 +25,5 @@ navigation:
     url: weekNine
   - title: Elements of Programming Scenario Three(Term Project)
     url: EOP
+  - title: Easy problems in Scala
+    url: ScalaEasy
