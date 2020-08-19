@@ -41,7 +41,7 @@
   }
   ```
 
-[Remove Duplicates from Sorted Array]() 
+[Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/submissions/) 
 
 ```
 object Solution {
