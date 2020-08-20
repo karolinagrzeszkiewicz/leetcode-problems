@@ -280,3 +280,35 @@ The idea is to have two stacks, enqueue takes O(1) time and dequeue takes O(1) t
 
 ![Image of Heaps BootCamp](Heaps.png)
  
+[Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/)
+
+```python
+from heapq import *
+
+class MedianFinder:
+
+    def __init__(self):
+        
+       # To store higher side of numbers
+        self.min_heap = [] 
+        
+        #To store the lower side of numbers
+        self.max_heap = [] 
+        
+    def addNum(self, num: int) -> None:
+        heappush(self.max_heap, -heappushpop(self.min_heap, num))
+
+        if len(self.max_heap) > len(self.min_heap):
+            heappush(self.min_heap, -heappop(self.max_heap))
+
+
+
+    def findMedian(self) -> float:
+        
+        if len(self.max_heap) == len(self.min_heap):
+            return (-self.max_heap[0] + self.min_heap[0]) / 2
+        else:
+            return self.min_heap[0]
+```
+
+The idea is to use a min-heap and a max heap. The min heap stores the top k highest numbers and the max heap stores the rest of (k -n) numbers on the lower side of numbers. Each time you push the lowest element of the min hep into the max-heap(rememeber to use a negative sign) and always make sure that the min heap is larger than the max heap.
