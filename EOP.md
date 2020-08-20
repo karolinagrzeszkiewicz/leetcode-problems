@@ -266,3 +266,17 @@ The idea is to have two stacks, enqueue takes O(1) time and dequeue takes O(1) t
               res.append(node.val)
               root = node.right
   ```
+
+- Heaps Recap
+
+- Heaps are specialized binary trees with the property that the key at each node is atleast as great as the keys stored at its children (the opposite definition is true for min heaps). 
+
+- A max heap is implemented as an array. The children of the node at index i are at indices (2i +1) and (2i + 2).
+
+- ```Insertions``` - O(log```n```)
+- ```Look-up for max element``` - O(1)
+- ```Deletion of max element``` - O(log```n```)
+- ``` Searching for Arbitiary keys``` - O(```n```) 
+
+![Image of Heaps BootCamp](Heaps.png)
+ 
