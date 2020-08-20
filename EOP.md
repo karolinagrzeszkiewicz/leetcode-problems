@@ -267,7 +267,7 @@ The idea is to have two stacks, enqueue takes O(1) time and dequeue takes O(1) t
               root = node.right
   ```
 
-- Heaps Recap
+- [Heaps Recap- read page 25/26](https://drive.google.com/file/d/1hfhhpJvuvD7VCtVAs10D8p8FMAB2tqMZ/view)
 
 - Heaps are specialized binary trees with the property that the key at each node is atleast as great as the keys stored at its children (the opposite definition is true for min heaps). 
 
