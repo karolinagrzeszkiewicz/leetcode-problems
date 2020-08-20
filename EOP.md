@@ -280,7 +280,7 @@ The idea is to have two stacks, enqueue takes O(1) time and dequeue takes O(1) t
 
 ![Image of Heaps BootCamp](Heaps.png)
  
-[Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/)
+[Find Median from Data Stream- 10.5](https://leetcode.com/problems/find-median-from-data-stream/)
 
 ```python
 from heapq import *
