@@ -1,6 +1,4 @@
 ## LeetCode Select Questions Solution
 
 
-Questions based on [Yangshun's guide](https://yangshun.github.io/tech-interview-handbook/best-practice-questions/
-).
-
+Hope you find my Algorithms Practice useful. You can find the questons solved [here](https://alaukiknpant.github.io/Five-Weeks-of-Leet-Code/)
