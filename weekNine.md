@@ -63,3 +63,32 @@ class Solution:
                 final.append(k)
         return final      
 ```
+
+- [Bipartite Graph](https://leetcode.com/problems/is-graph-bipartite/)
+```
+class Solution:
+    def isBipartite(self, graph: List[List[int]]) -> bool:
+        leng = len(graph)
+        color = [None] * leng
+
+        queue = collections.deque()
+
+        for i in range(leng):
+            if color[i] == None:
+                color[i] = 1
+                queue.append(i)
+                while queue:
+                    curr = queue.popleft()
+                    curr_color = color[curr] 
+
+                    for neighbor in graph[curr]:
+                        neighbor_color = curr_color * (-1)
+                        if not color[neighbor]:
+                            color[neighbor] = neighbor_color
+                            queue.append(neighbor)
+                        else:
+                            if color[neighbor] != neighbor_color:
+                                return False
+        return True
+
+```
