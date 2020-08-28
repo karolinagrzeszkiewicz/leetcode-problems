@@ -369,3 +369,30 @@ class Solution:
                 left = mid 
         return left
 ```
+
+- Duplicate and Sorted - 11.10
+
+[Duplicate](https://leetcode.com/problems/find-the-duplicate-number/)
+```python
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        nums.sort()
+        for i in range(len(nums) - 1):
+            if nums[i] == nums[i+1]:
+                return nums[i]
+ ```
+
+
+[Mising](https://leetcode.com/problems/missing-number/)
+
+```python
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        expected = 0
+        total = 0
+        leng = len(nums)
+        for num in range(leng):
+            expected += num
+            total += nums[num]
+        return (expected + leng) - total
+```
