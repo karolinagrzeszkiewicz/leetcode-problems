@@ -312,3 +312,60 @@ class MedianFinder:
 ```
 
 The idea is to use a min-heap and a max heap. The min heap stores the top k highest numbers and the max heap stores the rest of (k -n) numbers on the lower side of numbers. Each time you push the lowest element of the min hep into the max-heap(rememeber to use a negative sign) and always make sure that the min heap is larger than the max heap.
+
+[Valid Perfect Squares-11.5](https://leetcode.com/problems/valid-perfect-square/submissions/)
+
+##### Approach One
+```python
+class Solution:
+    def isPerfectSquare(self, num: int) -> bool:
+        i = 1
+        while (num > 0):
+            num -= i
+            i += 2
+        return num == 0
+```
+
+The idea is to reduce the number by 1, 3, 5, 7, 9 ... each time beause that is how the difference between perfect squares propogates an finally check if the num is 0.
+
+##### Approach Two
+
+```python
+class Solution:
+    def isPerfectSquare(self, num: int) -> bool:
+        if num == 1:
+            return True
+        if num == 2:
+            return False
+        left, right = 2, num
+        while left <= right:
+            mid = (left + right) // 2
+            sqrd = mid * mid
+            if sqrd > num:
+                right = mid - 1
+            elif sqrd < num:
+                left = mid + 1
+            else:
+                return True
+        return False
+```
+
+We reduce mid by one or increase it by 1 because we want to eliminate numbers that exceed 
+
+For finding square root(not necessarily perfect), use the following approach:
+
+```python
+class Solution:
+    def isPerfectSquare(self, num: int) -> bool:
+        left,right = 1.0, num
+        if num < 1.0:
+            left,right = num, 1.0 
+        while not isclose(left,right):
+            mid = (left + right) * 0.5
+            sqrd = mid * mid
+            if sqrd > num:
+                right = mid
+            elif sqrd < num:
+                left = mid 
+        return left
+```
