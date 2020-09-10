@@ -91,7 +91,7 @@ def countGroups(related):
 
 [Paint Master](https://www.hackerrank.com/contests/spider-preinduction/challenges/paint-master)
 
-```
+```python
 import collections
 def strokesRequired(picture):
     if not picture:
