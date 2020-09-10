@@ -74,6 +74,8 @@ class TreeLock(numThreads: Int) extends Lock {
 
 [logo]: https://www.researchgate.net/profile/Zoltan_Kasa/publication/45900964/figure/fig1/AS:306083185872912@1449987326220/Encoding-of-binary-trees-for-n-4.png "Logo Title Text 2"
 
+Notw that in the above figure, if the path is ```1010```, we go to the left child of the root(1) and then the right child(0) of the next node accesed and then the left child and then the right child.
+
 
 ### Locking
 
@@ -81,5 +83,5 @@ Locking requires us to do a binary encoding of the thread T(id between 0 and n-1
 
 ### Unlocking
 
-Unlocking works in a siilar fashion. We find the binary encoding of the thread under consideration and keep unlocking the nodes that are in the path. For example, if the path is ```1010```, we go to the left child of the root(1) and then the right(0)child and then the left and then the right. Note that while unlocking, we unlock starting from the root.
+Unlocking works in a siilar fashion. We find the binary encoding of the thread under consideration and keep unlocking the nodes that are in the path.  Note that while unlocking, we unlock starting from the root.
 
