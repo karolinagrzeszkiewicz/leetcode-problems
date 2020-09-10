@@ -26,7 +26,7 @@ Locking requires us to do a binary encoding of the thread T(id between 0 and n-1
 Unlocking works in a similar fashion. We find the binary encoding of the thread under consideration and keep unlocking the nodes that are in the path from the root to the leaf node.  Note that while unlocking, we unlock starting from the root (we start locking from the leaf node).
 
 
-### Reason this code is deadlock free, starvtion free and non-mutually exclusive
+### Reason this code is deadlock free, starvtion free and mutually exclusive
 
 We know Peterson lock satisfies all these conditions. To ensure the entire tree of Peterson locks follows these condition, we need to make sure that no more than  2 node whose IDs are encoded as 1 and 0 can access one PetersonNode. This is ensured by the binary encoding of the paths.
 
