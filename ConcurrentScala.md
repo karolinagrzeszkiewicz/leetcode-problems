@@ -68,7 +68,7 @@ class TreeLock(numThreads: Int) extends Lock {
   We then create an array representation of the tree of locks. The size of the array is going to be within the bounds of ```2^Depth```. Note that this array can 
   be used to represent a perfect Binary Tree, in which all the internal nodes have two children and all leaf nodes are at the same level.
   
-  After creating an array representation of the tree, we we work on doing a binary encoding of the leaf nodes as shown in the following image.
+  After creating an array representation of the tree, we work on doing a binary encoding of the leaf nodes as shown in the following image.
   
 ![alt text][logo]
 
