@@ -74,3 +74,12 @@ class TreeLock(numThreads: Int) extends Lock {
 
 [logo]: https://www.researchgate.net/profile/Zoltan_Kasa/publication/45900964/figure/fig1/AS:306083185872912@1449987326220/Encoding-of-binary-trees-for-n-4.png "Logo Title Text 2"
 
+
+### Locking
+
+Locking requires us to do a binary encoding of the thread T(id between 0 and n-1 where n is the number of threads) trying  acquire the lock. `000` would refer to the left most node, for example, in a tree of depth three. Then we calculate the index in the array of the thread under consideration using its binary encoding using the ```getInitIndex``` function. Once we find the index of leaf node, we access its parents each time using the formula given in the code. The way to find the index of a node is inspired by the way we find indices in heaps. We keep accesing the parent and lock it until we reach the root node.
+
+### Unlocking
+
+Unlocking works in a siilar fashion. We find the binary encoding of the thread under consideration and keep unlocking the nodes that are in the path. For example, if the path is ```1010```, we go to the left child of the root(1) and then the right(0)child and then the left and then the right. Note that while unlocking, we unlock starting from the root.
+
