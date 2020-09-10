@@ -83,7 +83,7 @@ Locking requires us to do a binary encoding of the thread T(id between 0 and n-1
 
 ### Unlocking
 
-Unlocking works in a similar fashion. We find the binary encoding of the thread under consideration and keep unlocking the nodes that are in the path from the root to the node.  Note that while unlocking, we unlock starting from the root (we start locking from the leaf node).
+Unlocking works in a similar fashion. We find the binary encoding of the thread under consideration and keep unlocking the nodes that are in the path from the root to the leaf node.  Note that while unlocking, we unlock starting from the root (we start locking from the leaf node).
 
 
 ### Reason this code is deadlock free, starvtion free and non-mutually exclusive
