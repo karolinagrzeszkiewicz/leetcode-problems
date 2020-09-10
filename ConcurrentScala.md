@@ -1,6 +1,6 @@
 ## Concurrent Algorithms in Scala
 
-# [Peterson Lock in a tree](https://www.seas.upenn.edu/~alur/Spring09/hw1.pdf)
+# [Peterson Lock in a tree](https://ilyasergey.net/YSC3248/_static/resources/programming-02-mex.pdf)
 
 ````scala
 class TreeLock(numThreads: Int) extends Lock {
@@ -79,9 +79,14 @@ Notw that in the above figure, if the path is ```1010```, we go to the left chil
 
 ### Locking
 
-Locking requires us to do a binary encoding of the thread T(id between 0 and n-1 where n is the number of threads) trying  acquire the lock. `000` would refer to the left most node, for example, in a tree of depth three. Then we calculate the index in the array of the thread under consideration using its binary encoding using the ```getInitIndex``` function. Once we find the index of leaf node, we access its parents each time using the formula given in the code. The way to find the index of a node is inspired by the way we find indices in heaps. We keep accesing the parent and lock it until we reach the root node.
+Locking requires us to do a binary encoding of the thread T(id between 0 and n-1 where n is the number of threads) trying  acquire the lock. `000` would refer to the left most node, for example, in a tree of depth three. Then we calculate the index in the array of the thread under consideration using its binary encoding using the ```getInitIndex``` function. We lock the ```PetersonNode``` in this index.  Once we find the index of leaf node, we access its parents each time using the formula given in the code and unlock the ```PetersonNode``` in the index of the parent. The way to find the index of a node is inspired by the way we find indices in heaps. We keep accesing the parent and lock it until we reach the root node.
 
 ### Unlocking
 
-Unlocking works in a siilar fashion. We find the binary encoding of the thread under consideration and keep unlocking the nodes that are in the path.  Note that while unlocking, we unlock starting from the root.
+Unlocking works in a similar fashion. We find the binary encoding of the thread under consideration and keep unlocking the nodes that are in the path from the root to the node.  Note that while unlocking, we unlock starting from the root (we start locking from the leaf node).
+
+
+### Reason this code is deadlock free, starvtion free and non-mutually exclusive
+
+We know Peterson lock satisfies all these conditions. To ensure the entire tree of Peterson locks follows these condition, we need to make sure that no more than  2 node whose IDs are encoded as 1 and 0 can access one PetersonNode. This is ensured by the binary encoding of the paths.
 
