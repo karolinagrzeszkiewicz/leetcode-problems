@@ -74,7 +74,7 @@ class TreeLock(numThreads: Int) extends Lock {
 
 [logo]: https://www.researchgate.net/profile/Zoltan_Kasa/publication/45900964/figure/fig1/AS:306083185872912@1449987326220/Encoding-of-binary-trees-for-n-4.png "Logo Title Text 2"
 
-Notw that in the above figure, if the path is ```1010```, we go to the left child of the root(1) and then the right child(0) of the next node accesed and then the left child and then the right child.
+Notw that in the above figure, if the path is ```1010```, we go to the right child of the root(1) and then the left child(0) of the next node accesed and then the right child and then the left child.
 
 
 ### Locking
