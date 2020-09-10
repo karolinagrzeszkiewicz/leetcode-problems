@@ -60,6 +60,10 @@ def countGroups(related):
  
  ### Scenario 2
  
+ Reminder on Mods
+ 
+ ![Image of MOD](modulo.png)
+ 
  [Robot Bounded in Circle](https://leetcode.com/problems/robot-bounded-in-circle/)
  
  ```python
