@@ -1,6 +1,9 @@
 ## Hacker Ranks Solved
 
 
+### Scenario 1
+
+
 [Balanced Sum](https://www.hackerrank.com/contests/world-codesprint-11/challenges/balanced-array)
 
 ```python
@@ -53,3 +56,69 @@ def countGroups(related):
  return numGroups(arr)
  
  ```
+ 
+ 
+ ### Scenario 2
+ 
+ [Robot Bounded in Circle](https://leetcode.com/problems/robot-bounded-in-circle/)
+ 
+ ```python
+ class Solution:
+    def isRobotBounded(self, instructions: str) -> bool:
+        
+        ## directions are right, bottom, left, top
+        direction = [[0,1], [-1,0], [0,-1], [1,0]]
+        point = [0,0]
+        
+        ## Index representing the direction we want to access
+        direction_idx = 0
+
+        for ins in instructions:
+            if ins == "G":
+                point = [sum(x) for x in zip(point, direction[direction_idx])]
+            elif ins == "L":
+                direction_idx = (direction_idx + 1) % 4
+            elif ins == "R":
+                direction_idx = (direction_idx - 1) % 4
+
+        if (point != [0,0] and direction_idx == 0):
+                return False
+
+        ## For robot to be unbounded, point has to change and direction should not be 0 in one iteration of the sequence of events     
+        return True
+```
+
+
+[Paint Master](https://www.hackerrank.com/contests/spider-preinduction/challenges/paint-master)
+
+```
+import collections
+def strokesRequired(picture):
+    if not picture:
+        return 0
+    row = len(picture)
+    column = len(picture[0])
+    no_of_strokes = 0
+    visited = set()
+
+    def bfs(ro, col, val):
+        stack = collections.deque()
+        stack.append((ro, col))
+        while stack:
+            row_pop, col_pop = stack.pop()
+            directions = [[1, 0], [-1,0], [0,1], [0,-1]]
+            for r1, c1 in directions:
+                r = r1 + row_pop
+                c = c1 + col_pop
+                if (r in range(row)) and (c in range(column)) and picture[r][c] == val and (r,c) not in visited:
+                    visited.add((r, c))
+                    stack.append((r,c))
+
+    for ro in range(row):
+        for col in range(column):
+            val = picture[ro][col]
+            if (ro, col) not in visited:
+                bfs(ro, col,val)
+                no_of_strokes += 1
+    return no_of_strokes
+```
