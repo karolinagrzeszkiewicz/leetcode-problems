@@ -27,3 +27,5 @@ navigation:
     url: EOP
   - title: Easy problems in Scala
     url: ScalaEasy
+  - title: HackerRanks Solved
+    url: HackerRanks
