@@ -2,66 +2,6 @@
 
 # [Peterson Lock in a tree](https://ilyasergey.net/YSC3248/_static/resources/programming-02-mex.pdf)
 
-````scala
-class TreeLock(numThreads: Int) extends Lock {
-
-  final val DEPTH: Int = (Math.log(numThreads) / Math.log(2)).ceil.toInt
-
-  // assuming numThreads = 5, arrSize would equal 2^4 - 1 = 15
-  final val SIZE: Int = math.pow(2.0, DEPTH).toInt
-
-  val lock_arr = new Array[PetersonNode](SIZE)
-
-  for (x <- 0 until SIZE) {
-    lock_arr(x) = new PetersonNode
-  }
-
-  def encodeToBinary(n: Int): String = {
-    var res = n.toBinaryString
-    while (this.DEPTH > res.length) {
-      res = '0' + res
-    }
-    res
-  }
-
-
-  override def lock(): Unit = {
-    def getInitIndex(binaryEnc:String) = {
-      var index = 0
-      for (i <- 0 until binaryEnc.length - 1) {
-        if (binaryEnc(i).equals('1')) {
-          index = index * 2 + 2
-        } else {
-          index = index * 2 + 1
-        }
-      }
-      index
-    }
-    val threadID = ThreadID.get
-    val lockPath = encodeToBinary(threadID)
-    var index: Int = getInitIndex(lockPath)
-
-    for (curLock <- lockPath.reverse) {
-      val curLockId = if (curLock.equals('0')) 0 else 1
-      this.lock_arr(index).lock(curLockId )
-      index = (index - 1) / 2
-    }
-  }
-
-
-  override def unlock(): Unit = {
-    val threadID = ThreadID.get
-    var index = 0
-    val lockPath = encodeToBinary(threadID)
-
-    for (curLock <- lockPath) {
-      val curLockId = if (curLock.equals('0')) 0 else 1
-      this.lock_arr(index).unlock(curLockId)
-      if (curLockId == 0) index = index * 2 + 1 else index = index * 2 + 2
-    }
-  }
-  
-  ````
   
   
   To solve this question, we first calculate the depth of a tree required for ```n``` threads trying to access locks, which is given by ```log_2(n)```. 
