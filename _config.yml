@@ -29,3 +29,5 @@ navigation:
     url: ScalaEasy
   - title: HackerRanks Solved
     url: HackerRanks
+  - title: Flavors of QuickSort(Article)
+    url: QuickSort
