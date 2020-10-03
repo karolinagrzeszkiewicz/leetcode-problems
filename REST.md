@@ -1,6 +1,6 @@
 ## REST
 
-y
+[Notes copied from here](https://medium.com/extend/what-is-rest-a-simple-explanation-for-beginners-part-1-introduction-b4a072f8740f)
 
 
 REST is an atchitectural style for APIs. An API is called RESTful if it uses this architecture.
