@@ -51,3 +51,55 @@ Example: In twitter, if the identifier is "www.twitter.com/jk_rowling", the HTTP
   
 6. Code-on-demand (optional)
   - The client can request code from the server, and then the response from the server will contain some code, usually in the form of a script,
+  
+  
+  
+## Testing Web Applications
+
+**Unit Testing** - Making sure individual functions work
+**Client Testing** - We will probably want to check not just whether or not specific functions work, but also whether or not individual web pages load as intended. 
+**Selenium** - Using Selenium, we’ll be able to define a testing file in Python where we can simulate a user opening a web browser, navigating to our page, and interacting with it. Our main tool when doing this is known as a Web Driver, which will open up a web browser on your computer. 
+
+
+## CI/CD: Continuous Integration and Continuous Delivery
+- A set of software development best practices that dictate how code is written by a team of people, and how that code is later delivered to users of the application. 
+**Continuous Integration:** Frequent merges to the main branch and automated unit testing with each merge
+- When different team members are working on different features, many compatibility issues can arise when multiple features are combined at the same time. Continuous integration allows teams to tackle small conflicts as they come.
+- Because unit tests are run with each Merge, when a test fails it is easier to isolate the part of the code that is causing the problem.
+
+**Continuous Delivery:** Short release schedules, meaning new versions of an application are released frequently.
+- Frequently releasing new versions of an application allows developers to isolate problems if they arise after launch.
+- Releasing small, incremental changes allows users to slowly get used to new app features rather than being overwhelmed with an entirely different version
+
+**Tools for Continious Integration:** GitHub Actions will allow us to create workflows where we can specify certain actions to be performed every time someone pushes to a git repository. 
+
+
+## Docker
+
+- Docker is a containerization software, meaning it creates an isolated environment within your computer that can be standardized among many collaborators and the server on which your site is run. 
+
+- A virtual machine is effectively an entire virtual computer with its own operating system, meaning it ends up taking a lot of space wherever it is running. 
+
+- Dockers, on the other hand, work by setting up a container within an existing computer, therefore taking up less space.
+
+- A Docker image is a read-only template that contains a set of instructions for creating a container that can run on the Docker platform.
+
+- Docker Compose allows two different servers to run in separate containers, but also be able to communicate with one another.
+
+
+## Scalability
+
+- we run our sites on servers, which are physical pieces of hardware dedicated to running applications. 
+- Servers can either be on-premise (We own and maintain physical servers where our application is hosted) or on the cloud (servers are owned by a different company such as Amazon or Google, and we pay to rent server space where our application is hosted). 
+- A single server can handle only so many requests at once, forcing us to make plans about what to do when our one server is overworked.
+- we have to determine how many requests a server can handle without crashing, which can be done using any number of benchmarking tools including Apache Bench.
+
+## Scaling
+- can be done vertically(buy a more powerful server) or horizontally(run servers in parallel)
+
+## Load balancing
+- with horizontal scaling, we need to balance how many requests each server gets
+- we can employ a load balancer, which is another piece of hardware that intercepts incoming requests, and then assigns those requests to one of our servers. 
+
+- **Problems of Sessions** - 
+- we might have sessions that are stored on one server but not another, and we don’t want users to have to re-enter information just because the load balancer pushes their request to a new server
