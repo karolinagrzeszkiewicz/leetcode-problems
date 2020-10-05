@@ -1,4 +1,4 @@
-# Different flavors of Quick Sort (YSC3248 Midterm Report)
+# Different flavors of Quick Sort
 
 ##### Alaukik Nath Pant 
 
