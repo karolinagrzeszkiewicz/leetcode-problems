@@ -1,6 +1,6 @@
 theme: jekyll-theme-minimal
 title: Alaukik's Algorithms Progress Tracker
-description: Leetcode questions solved by Alaukik
+description: Questions and Articles about Concurrent Programming
 show_downloads: True
 navigation:
   - title: Home
