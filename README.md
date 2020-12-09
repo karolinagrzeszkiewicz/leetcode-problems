@@ -1,4 +1,4 @@
-## Algorithm Questions Solved by Alaukik
+## Algorithm Questions Solved by Karolina
 
 
-Hope you find my Algorithms Practice useful. You can find the questons solved [here](https://alaukiknpant.github.io/Five-Weeks-of-Leet-Code/)
+Hope you find my Algorithms Practice useful. You can find the questons solved [here](https://karolinagrzeszkiewicz.github.io/leetcode-problems/)
