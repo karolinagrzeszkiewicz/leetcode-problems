@@ -5,6 +5,21 @@ show_downloads: True
 navigation:
   - title: Home
     url: /
-  - title: Elements of Programming Scenario Three(Term Project)
-    url: EOP
+  - title: Dynamic Programming
+    url: DP
+  - title: Divide and Conquer
+    url: divandconquer
+  - title: Cyclic Replacements
+    url: cyclic
+  - title: Miscallaneous
+    url: other
+  - title: Arrays
+    url: arrays
+  - title: Linked Lists
+    url: linkedlist
+  - title: Binary Trees
+    url: binarytree
+  - title: Stacks
+    url: stack
+  
  
