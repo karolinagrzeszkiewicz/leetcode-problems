@@ -11,7 +11,7 @@ navigation:
     url: divandconquer
   - title: Cyclic Replacements
     url: cyclic
-  - title: Miscallaneous
+  - title: Miscellaneous
     url: other
   - title: Arrays
     url: arrays
