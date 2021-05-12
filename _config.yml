@@ -13,7 +13,7 @@ navigation:
     url: cyclic
   - title: Miscellaneous
     url: other
-  - title: Arrays
+  - title: Arrays and Strings
     url: arrays
   - title: Linked Lists
     url: linkedlist

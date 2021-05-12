@@ -1,4 +1,4 @@
-# Arrays
+# Arrays and strings
 
 [Merge Sorted Array](https://leetcode.com/problems/merge-sorted-array/)
 
@@ -185,27 +185,6 @@ def containsNearbyAlmostDuplicate(nums, k, t):
 
 ```
 
-[Two Sum](https://leetcode.com/problems/two-sum/)
-
-Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
-
-You may assume that each input would have exactly one solution, and you may not use the same element twice.
-
-You can return the answer in any order.
-
-```python
-def twoSum(nums, target):
-        dicte = {}
-        
-        for idx in range(len(nums)):
-            #create a dictionary as we go where nums are keys and indexes are values
-            num = nums[idx]
-            diff = target - num
-            if diff in dicte.keys():
-                return [dicte[diff], idx]
-            else:
-                dicte[num] = idx
-```
 
 [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/)
 
@@ -414,3 +393,230 @@ def threeSum(nums):
                     r -= 1 #if sum too big we need to increase r
         return ans
 ```
+
+[Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
+
+Given a string s, find the length of the longest substring without repeating characters.
+
+
+Example 1:
+
+Input: s = "abcabcbb"
+Output: 3
+Explanation: The answer is "abc", with the length of 3.
+Example 2:
+
+Input: s = "bbbbb"
+Output: 1
+Explanation: The answer is "b", with the length of 1.
+Example 3:
+
+Input: s = "pwwkew"
+Output: 3
+Explanation: The answer is "wke", with the length of 3.
+Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
+Example 4:
+
+Input: s = ""
+Output: 0
+
+```python
+def lengthOfLongestSubstring(s) :
+        left = 0
+        right = 0
+        max_len = 0 
+        chars_used = {}
+        while right < len(s):
+            char = s[right]
+            if char in chars_used.keys() and left <= chars_used[char]: #means that both repetitions are in the window
+                left = chars_used[char] + 1
+            else: #if not in the hash table or outside of the window 
+                max_len = max(max_len, right-left+1)
+            chars_used[char] = right #update the hashtable with most recent index
+            right += 1
+        return max_len
+```
+
+We use a sliding window defined by the index left on the left and right on the right and a hash table to keep track of the most recent index of a given character.
+
+Each time we access a character at the right end of the window:
+
+If the character is already in the hash table and if it is within our window (on the right of the left index) then we move the left end of the window to the following character.
+
+Else if the rightmost character is not in the sliding window we keep going to the right and update the maximum length of the window.
+
+In any case, we update the most recent index of the rightmost character in the hash table and move to the next character.
+
+[Container with Most Water](https://leetcode.com/problems/container-with-most-water/)
+
+Given n non-negative integers a1, a2, ..., an , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of the line i is at (i, ai) and (i, 0). Find two lines, which, together with the x-axis forms a container, such that the container contains the most water.
+
+Notice that you may not slant the container.
+
+Example 1:
+
+Input: height = [1,8,6,2,5,4,8,3,7]
+
+Output: 49
+
+Explanation: The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of water (blue section) the container can contain is 49.
+
+Example 2:
+
+Input: height = [1,1]
+
+Output: 1
+
+Example 3:
+
+Input: height = [4,3,2,1,4]
+
+Output: 16
+
+Example 4:
+
+Input: height = [1,2,1]
+
+Output: 2
+
+Solution 
+
+```python
+def maxArea(height):
+        left = 0
+        right = len(height)-1
+        max_area = (right-left)*min(height[left],height[right])
+        while left < right:
+            area = (right-left)*min(height[left],height[right])
+            max_area = max(max_area, area)
+            if height[right] < height[left]:
+                right -= 1
+            else:
+                left += 1
+        return (max_area)
+```
+
+Explanation:
+
+We use a sliding window defined by left and right pointers which start at the leftmost and rightmost ends of the array and gradually move inwards computing the area defined by the window. The main source of optimization is the way in which we move the pointers towards each other: we look at the height corresponding to the left and right pointers, and we choose to move towards the centre the pointer with the lower height. This is because a bigger height might be worth keeping in the window since it might keep the minimum of the two heights high.
+
+[Two Sum](https://leetcode.com/problems/two-sum/)
+
+Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+You can return the answer in any order.
+
+```python
+def twoSum(nums, target):
+        dicte = {}
+        
+        for idx in range(len(nums)):
+            #create a dictionary as we go where nums are keys and indexes are values
+            num = nums[idx]
+            diff = target - num
+            if diff in dicte.keys():
+                return [dicte[diff], idx]
+            else:
+                dicte[num] = idx
+```
+
+Explanation:
+
+We use a hash table to keep track of the elements already traversed and their indices. As we traverse the array for each element we find the difference between the target and that element and check if there is a number in the hash table corresponding to that difference. If there is such number we know its index from the hash table so we return the pair of indices. If a number is not in the hash table we add it to the hash table. 
+
+[3Sum](https://leetcode.com/problems/3sum/)
+
+Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+
+Notice that the solution set must not contain duplicate triplets.
+
+
+Example 1:
+
+Input: nums = [-1,0,1,2,-1,-4]
+Output: [[-1,-1,2],[-1,0,1]]
+
+Example 2:
+
+Input: nums = []
+Output: []
+
+Example 3:
+
+Input: nums = [0]
+Output: []
+
+Solution 1
+
+```python
+
+def threeSum(nums):
+        
+        def twosum(nums, i, res):
+            left = i + 1
+            right = len(nums)-1
+            while left < right:
+                ssum = nums[i] + nums[left] + nums[right]
+                if ssum > 0:
+                    right -= 1
+                elif ssum < 0:
+                    left += 1
+                else:
+                    res.append([nums[i], nums[left], nums[right]])
+                    left += 1
+                    right -= 1
+                    while left < right and nums[left] == nums[left-1]:
+                        left += 1
+                    
+        res = []
+        nums.sort()
+        for i in range(len(nums)):
+            if nums[i] > 0:
+                break
+            if i == 0 or nums[i-1] !=  nums[i]:
+                twosum(nums, i, res)
+        return res
+
+```
+ 
+ Explanation: 
+ 
+ We want to traverse the elements of the array and for each element num we want to find if there is a pair of numbers that sum up to -num using the twosum function (its complements).
+ We assume that the element traversed is negative and its complements are positive. Hence, we sort the array initially which will allow us to optimise the traversal by traversing only negative elements in the outer loop. It doesn;t affect the complexity since sorting is done in O(n^2) and we're aiming at O(n^2)  complexity overall. Also in a sorted array identical elements are next to each other, and so if there is a repetition we can easily skip it.
+ 
+ In the inner two sum function called on negative non-repeated elements and always the first element of the list we use two pointers initialised as the leftmost and rightmost boundary of the window on the right of the number accessed in outer loop. We traverse the array with the pointers moving towards the centre and each time we compute the sum of the number from the outer loop, the left pointer and the right pointer. If the sum is 0 we append it to the result and move both pointers towards the centre (since then it is impossible to get a 0 by changing only one number in the sum). If the sum is bigger than 0 we want the sum to decrease, so we move the right pointer to the left i.e to smaller numbers. If the sum is smaller than 0 then we want it to increase so we move the left pointer to the right.
+ 
+ 
+Solution 2
+
+```python
+
+def threeSum(nums) :
+        
+        def twosum2(nums, i, res):
+            traversed_elems = set()
+            j = i + 1
+            while j < len(nums):
+                complement = -nums[i] - nums[j]
+                if complement in traversed_elems:
+                    res.append([nums[i], nums[j], complement])
+                    while j < len(nums)-1 and nums[j] == nums[j+1]:
+                        j += 1
+                traversed_elems.add(nums[j])
+                j += 1  
+                                
+        res = []
+        nums.sort()
+        for i in range(len(nums)):
+            if nums[i] > 0:
+                break
+            if i == 0 or nums[i-1] !=  nums[i]:
+                twosum2(nums, i, res)
+        return res
+
+```
+
+This solution also relies on sorting. However, this time as we traverse the array from left to right in the outer loop for each such number we traverse all numbers to the right of it and for each such pair of numbers we check if their complement is in the set where the set contains the numbers already traversed in the inner loop. Even though we use a set lookup in O(1) the complexity is still O(n^2) since we do two array/subarray traversals.
+ 
