@@ -620,3 +620,83 @@ def threeSum(nums) :
 
 This solution also relies on sorting. However, this time as we traverse the array from left to right in the outer loop for each such number we traverse all numbers to the right of it and for each such pair of numbers we check if their complement is in the set where the set contains the numbers already traversed in the inner loop. Even though we use a set lookup in O(1) the complexity is still O(n^2) since we do two array/subarray traversals.
  
+
+ [Next Permutation](https://leetcode.com/problems/next-permutation/)
+
+ Implement next permutation, which rearranges numbers into the lexicographically next greater permutation of numbers.
+
+If such an arrangement is not possible, it must rearrange it as the lowest possible order (i.e., sorted in ascending order).
+
+The replacement must be in place and use only constant extra memory.
+
+ 
+
+Example 1:
+
+Input: nums = [1,2,3]
+Output: [1,3,2]
+Example 2:
+
+Input: nums = [3,2,1]
+Output: [1,2,3]
+Example 3:
+
+Input: nums = [1,1,5]
+Output: [1,5,1]
+Example 4:
+
+Input: nums = [1]
+Output: [1]
+
+Solution
+
+```python
+
+def nextPermutation(nums):
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        #find pivot
+
+        i = len(nums)-2
+        while i >= 0 and nums[i+1] <= nums[i]:
+            i -= 1
+
+        if i < 0:
+            #means the nums are strictly decreasing so no greater permutation
+
+            for j in range(0, len(nums)//2):
+                j_swap = len(nums)-1-j
+                nums[j], nums[j_swap] = nums[j_swap], nums[j]
+        else:
+            pivot_idx = i
+            pivot = nums[pivot_idx]
+
+            #find next biggest
+
+            next_biggest, next_biggest_idx = nums[pivot_idx + 1], pivot_idx + 1
+            for k in range( pivot_idx + 2, len(nums), 1):
+                if nums[k] <= next_biggest and nums[k] > pivot:
+                    next_biggest, next_biggest_idx = nums[k], k
+            #swap the pivot with next biggest
+
+            nums[pivot_idx], nums[next_biggest_idx] = nums[next_biggest_idx], nums[pivot_idx]
+            window_len = len(nums) - (pivot_idx + 1)
+
+            #swapping
+
+            for j in range(pivot_idx+1, pivot_idx + 1 + window_len//2, 1):
+                j_swap = len(nums)-1 - (j-(pivot_idx+1))
+                nums[j], nums[j_swap] = nums[j_swap], nums[j]
+
+```
+
+Explanation:
+
+Imagine the successive numbers in the array form a single number e.g. [1, 2, 3] is 123. Then finding the next permutation is equivalent to finding the next biggest number than can be constructed from these digits i.e. in the above case 132 i.e [1, 3, 2].
+
+To do that we need to find the pivot i.e. traversing teh array from right to left the first number such that number is smaller than its neighbour on the right so that we have a decreasing subsequence. Having such number we know that there is potential to get the next permutation since that means that there are bigger numbers on the right of that number and we can swap that number with them thus getting a bigger permutation. 
+
+Yet we want to find the next bigger permutation, so we want to swap the pivot with the next biggest number on its right (rather than any bigger number) and then all that is left is sorting the numbers on the right of the pivot index which requires only reversing that subarray since the numbers in it are decreasing (since they are on the right of the pivot). We can reverse that subarray by swapping in place – first element from the left with the first from the right, second from the left with second from the right etc. until we reach the middle.
+
+If on the other hand the numbers in the array are strictly decreasing (there is no pivot) then this is the biggest permutation so we can't find a next permutation. Hence, we sort them in ascending order i.e. reverse the array by swapping in place as outlined above.
