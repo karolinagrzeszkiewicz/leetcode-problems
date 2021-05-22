@@ -700,3 +700,84 @@ To do that we need to find the pivot i.e. traversing teh array from right to lef
 Yet we want to find the next bigger permutation, so we want to swap the pivot with the next biggest number on its right (rather than any bigger number) and then all that is left is sorting the numbers on the right of the pivot index which requires only reversing that subarray since the numbers in it are decreasing (since they are on the right of the pivot). We can reverse that subarray by swapping in place – first element from the left with the first from the right, second from the left with second from the right etc. until we reach the middle.
 
 If on the other hand the numbers in the array are strictly decreasing (there is no pivot) then this is the biggest permutation so we can't find a next permutation. Hence, we sort them in ascending order i.e. reverse the array by swapping in place as outlined above.
+
+[Rotate Image](https://leetcode.com/problems/rotate-image/)
+
+You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).
+
+You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.
+
+Example 1:
+
+Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
+Output: [[7,4,1],[8,5,2],[9,6,3]]
+
+Example 2:
+
+Input: matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]
+Output: [[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]
+
+Example 3:
+
+Input: matrix = [[1]]
+Output: [[1]]
+
+Example 4:
+
+Input: matrix = [[1,2],[3,4]]
+Output: [[3,1],[4,2]]
+
+Solution 
+
+```python
+class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        n = len(matrix[0])
+        layers = n // 2
+        
+        for l in range(layers):
+        
+            for i in range(l, n-1-l):
+
+                elems = [(l, i), (i, n-1-l), (n-1-l, n-1-i), (n-1-i,l)]
+
+                (row, col) = elems[-1]
+                tmp = matrix[row][col]
+
+                for elem in elems:
+                    (row, col) = elem
+                    tmp2 = matrix[row][col]
+                    matrix[row][col] = tmp
+                    tmp = tmp2
+
+```
+
+Explanation
+
+We can think of an nxn square matrix as having n//2 layers i.e. 'squares within squares' where if n is odd the innermost square consisting of a single number is not counting as a layer since it doesn't have to be rotated. Then we can iterate over these layers from outermost to innermost. 
+
+For each such layer we need to perform swapping in several cycles: a cycle corresponding to the corners of the layer, a cycle corresponding to elements that are 1 element away clockwise from the corners, elements that are 2 elements clockwise from the corners etc. For each such cycle we have 4 elements where the 4th element has to be inserted in the position of the first element, the first element in the position fo the 2nd element, the 2nd element in the position of the 3rd element, the 3rd element in the position of the 4th element. we can do that by storing the elements that are removed from a position and soon to be inserted in another position as temporary variables. 
+
+[Multiply Strings](https://leetcode.com/problems/multiply-strings/)
+
+Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2, also represented as a string.
+
+Note: You must not use any built-in BigInteger library or convert the inputs to integer directly.
+
+Example 1:
+
+Input: num1 = "2", num2 = "3"
+
+Output: "6"
+
+Example 2:
+
+Input: num1 = "123", num2 = "456"
+
+Output: "56088"
+
+
+
