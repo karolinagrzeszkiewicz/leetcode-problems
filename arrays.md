@@ -761,6 +761,7 @@ We can think of an nxn square matrix as having n//2 layers i.e. 'squares within 
 
 For each such layer we need to perform swapping in several cycles: a cycle corresponding to the corners of the layer, a cycle corresponding to elements that are 1 element away clockwise from the corners, elements that are 2 elements clockwise from the corners etc. For each such cycle we have 4 elements where the 4th element has to be inserted in the position of the first element, the first element in the position fo the 2nd element, the 2nd element in the position of the 3rd element, the 3rd element in the position of the 4th element. we can do that by storing the elements that are removed from a position and soon to be inserted in another position as temporary variables. 
 
+
 [Multiply Strings](https://leetcode.com/problems/multiply-strings/)
 
 Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2, also represented as a string.
@@ -780,4 +781,89 @@ Input: num1 = "123", num2 = "456"
 Output: "56088"
 
 
+[Jump Game](https://leetcode.com/problems/jump-game/)
 
+Given an array of non-negative integers nums, you are initially positioned at the first index of the array.
+
+Each element in the array represents your maximum jump length at that position.
+
+Determine if you are able to reach the last index.
+
+ 
+
+Example 1:
+
+Input: nums = [2,3,1,1,4]
+Output: true
+Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.
+
+Example 2:
+
+Input: nums = [3,2,1,0,4]
+Output: false
+Explanation: You will always arrive at index 3 no matter what. Its maximum jump length is 0, which makes it impossible to reach the last index.
+ 
+
+Constraints:
+
+1 <= nums.length <= 104
+0 <= nums[i] <= 105
+
+...
+
+Solution 1
+
+```python
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        n = len(nums)-1
+        memo = [False]*(n+1)
+        memo[n] = True
+        for idx in range(n-1, -1, -1):
+            max_jump = min(idx + nums[idx], n)
+            for i in range(idx + 1, max_jump + 1, 1):
+                if memo[i]:
+                    memo[idx] = True
+                    break
+        return memo[0] 
+```
+
+Explanation:
+
+We use a memoization array to keep track of whether it is possible to jump to the last position (in a single step or a sequence) from a given position. For a given index idx and corresponding furthest jump given by nums[idx] if there is an index within a reach from idx (given by the furthest jump) labelled as True in the memoization array (which means that we can get to the last position from that index) then the memoization array at idx will be True too. 
+
+Hence the memoization array at index 0 corresponds to the statement whether we can jump to the last position from index 0 i.e. first position.
+
+Solution 2
+
+```python
+
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        last_pos = len(nums) - 1 #to keep track of the leftmost good position going from right to left
+        for i in range(len(nums)-1, -1, -1):
+            if i + nums[i] >= last_pos: 
+                last_pos = i # if we can jump from this position to the last good position or further then it is good
+        return last_pos == 0
+```
+
+Explanation:
+
+We can further optimize this by using a single variable that keeps track of the leftmost position from which we can reach the last position instead of using the memoization array. For a given index i if the index i moved by the furthest possible jump from it is at the last leftmost position or to the right from it (which means that we can reach the last leftmost position from the position given by index i) then it corresponds to the new leftmost position from which we can reach the last position.
+
+Solution 3
+
+```python
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        jmax = 0
+        for i, jump in enumerate(nums):
+            if i > jmax:
+                return False
+            jmax = max(jmax, i + jump)
+        return True
+```
+
+Explanation:
+
+To optimize even more we can traverse the array from left to right and keep track of the biggest length of a jump or a sequence of jumps (jmax) so far (which should always be bigger than the current index) – if at any point the index i we are accessing is bigger than jmax that means it cannot be reached from previous indices and hence we can't reach the last index either. 
