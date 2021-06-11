@@ -867,3 +867,160 @@ class Solution:
 Explanation:
 
 To optimize even more we can traverse the array from left to right and keep track of the biggest length of a jump or a sequence of jumps (jmax) so far (which should always be bigger than the current index) – if at any point the index i we are accessing is bigger than jmax that means it cannot be reached from previous indices and hence we can't reach the last index either. 
+ 
+ [Plus One](https://leetcode.com/problems/plus-one/)
+ 
+ Given a non-empty array of decimal digits representing a non-negative integer, increment one to the integer.
+
+ The digits are stored such that the most significant digit is at the head of the list, and each element in the array contains a single digit.
+
+ You may assume the integer does not contain any leading zero, except the number 0 itself.
+
+  
+
+ Example 1:
+
+ Input: digits = [1,2,3]
+ 
+ Output: [1,2,4]
+ 
+ Explanation: The array represents the integer 123.
+ 
+ Example 2:
+
+ Input: digits = [4,3,2,1]
+ 
+ Output: [4,3,2,2]
+ 
+ Explanation: The array represents the integer 4321.
+ 
+ Example 3:
+
+ Input: digits = [0]
+ 
+ Output: [1]
+
+
+```python
+class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        i = len(digits) - 1
+        last = digits[i]
+        while i >= 0 and last == 9:
+            digits[i] = 0
+            i -= 1
+            if i >= 0:
+                last = digits[i]
+        if i == -1 and last == 9:
+            return([1] + digits)
+        else:
+            digits[i] = last + 1
+        return(digits)
+```
+
+Explanation:
+
+Primary school addition – going from right to left find the first digit that is not 9 and add1 to it. Set all of the digits to its right equal to 0. If all digits are 9s then turn them into 0s and add a 1 in front.
+
+[Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/)
+
+Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".
+
+The testcases will be generated such that the answer is unique.
+
+A substring is a contiguous sequence of characters within the string.
+
+
+Example 1:
+
+Input: s = "ADOBECODEBANC", t = "ABC"
+
+Output: "BANC"
+
+Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
+
+Example 2:
+
+Input: s = "a", t = "a"
+
+Output: "a"
+
+Explanation: The entire string s is the minimum window.
+
+Example 3:
+
+Input: s = "a", t = "aa"
+
+Output: ""
+
+Explanation: Both 'a's from t must be included in the window.
+Since the largest window of s only has one 'a', return empty string.
+
+Solution:
+
+```python
+
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        
+        if not t or not s:
+            return ""
+    
+        dict_t = Counter(t)
+        unique_t = len(dict_t)
+        unique_window = 0 #number of unique character from t that are present in the window in their required frequency
+        
+        #filter characters from s into one that only contains characters that are in t
+        
+        s_filtered = []
+        for i, char in enumerate(s):
+            if char in dict_t:
+                s_filtered.append((i, char))
+        
+        left, right = 0, 0
+        
+        window = {}
+        
+        ans = len(s)+1, None, None
+        
+        #iterate over right, adjust left
+        while right < len(s_filtered):
+            
+            character = s_filtered[right][1]
+            window[character] = window.get(character, 0) + 1
+            
+            if window[character] == dict_t[character]: #means we have the required frequency in the window
+                unique_window += 1 
+              
+            #if the current window has all of the necessary characters save it and try to trim it from the left
+            while left <= right and unique_t == unique_window: 
+                
+                character = s_filtered[left][1]
+                
+                #save the smallest window
+                end_idx = s_filtered[right][0]
+                start_idx = s_filtered[left][0]
+                
+                if end_idx - start_idx + 1 < ans[0]:
+                    ans = (end_idx - start_idx + 1, start_idx, end_idx)
+                
+                #trim it
+                window[character] -= 1
+                
+                if window[character] < dict_t[character]:
+                    unique_window -= 1
+                
+                left += 1
+            
+            # when the window shrinks to empty or the window doesn't contains all of the required characters extend the
+            #window to the right
+            right += 1
+            
+        return "" if ans[0] == len(s)+1 else s[ans[1]:ans[2]+1]  
+
+```
+Explanation:
+
+Since the characters in s that are not in t are irrelevant we can filter them out by creating an array that stores only the 'relevant' characters (i.e. the characters that are in t) and their indices in s.
+
+We traverse the array with left and right pointers serving as the left and right boundaries of the sliding window. We progressively increment right to traverse the entire array and to extend the window so that it includes all of the required characters, and we increment left to trim the window to the minimal possible window that contains all of the required characters and save the minimal lengths and corresponding indices on the way.
