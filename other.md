@@ -149,3 +149,107 @@ def isValid(s):
                         return (False)
         return (stack == deque([]))
 ```
+
+
+[Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/)
+
+Given an array of meeting time intervals intervals where intervals[i] = [starti, endi], return the minimum number of conference rooms required.
+
+Example 1:
+
+Input: intervals = [[0,30],[5,10],[15,20]]
+
+Output: 2
+
+Example 2:
+
+Input: intervals = [[7,10],[2,4]]
+
+Output: 1
+
+Solution 1 (Priority Queue)
+
+The idea is to sort intervals by start time, so that we can allocate rooms in the order of start times. Then we store end times in a min heap i.e. with the smallest element at the top, such that the heap only stores the meetings that are 'currently happening'. Then we can pop the meeting end times for the meetings that have ended and push the meeting end times for the meetings that have started. 
+
+Then when we want to allocate a room for a meeting happening between start time and end time we check if its start time is bigger than the end time on top of the heap (i.e. smallest) – if it is then we pop that element thereby terminating the meeting and push an updated end time thus starting a new meeting in that same room, if it is not then we simply push the end time thereby allocating a new room.
+
+```python
+class Solution(object):
+    def minMeetingRooms(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: int
+        """
+        if len(intervals) == 0:
+            return 0
+        
+        #initialise the heap with end times as keys
+        free_rooms = []
+        
+        #sort the meeting in increasing order of start time
+        intervals.sort(key = lambda x : x[0])
+        
+        #push the first end time to free_rooms heap
+        heapq.heappush(free_rooms, intervals[0][1])
+        
+        for interval in intervals[1:]:
+            
+            #if the room on top is free take it
+            if free_rooms[0] <= interval[0]:
+                heapq.heappop(free_rooms)
+                
+            #add the updated ending time to the heap
+            heapq.heappush(free_rooms, interval[1])
+            
+        return len(free_rooms)
+```
+
+Solution 2 (Chronology and Pointers)
+
+Instead of considering intervals (which cannot have a total order), we can consider the start and end timings in ascending order which gives us chronology of start and end timings. Once we have start timings sorted, we can traverse them trying to allocate a new or used room to each like we did in the previous approach, and once we have the end timings sorted we can launch and terminate meetings by considering whether their end times are before or after the start of the meeting currently considered. This is similar to the min heap used in the approach above, which always had the earliest ending time of a meeting at the top but now instead of popping it we just move the pointer to the next minimum ending time.
+
+
+```python
+class Solution(object):
+    def minMeetingRooms(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: int
+        """
+        if len(intervals) == 0:
+            return 0
+        
+        start_times = sorted(interval[0] for interval in intervals)
+        end_times = sorted(interval[1] for interval in intervals)  
+        
+        rooms_taken = 0
+        max_rooms_taken = 0
+        
+        start_pointer = 0
+        end_pointer = 0
+        
+        while start_pointer < len(intervals):
+            
+            if start_times[start_pointer] < end_times[end_pointer]:
+                
+                #means we need to allocate another room
+                
+                rooms_taken += 1
+                start_pointer += 1
+                
+            else:
+                
+                #means that we can schedule the meeting after the meeting that has    ended (since the start and end times are sorted this ending meeting is the meeting ending the earliest before the starting meeting)
+                
+                #finish this meeting
+                end_pointer += 1 
+                
+                #allocate this toom to new meeting
+                #rooms_taken stays constant
+                
+                #move to the next meeting 
+                start_pointer +=1
+                
+        return rooms_taken
+```
+
