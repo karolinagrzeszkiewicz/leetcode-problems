@@ -21,5 +21,10 @@ navigation:
     url: binarytree
   - title: Stacks
     url: stack
+  - title: Array (Yangshun's guide)
+    url: arrays_yangshun
+  - title: Binary (Yangshun's guide)
+    url: binary_yangshun
+    
   
  
