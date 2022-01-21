@@ -138,3 +138,128 @@ class Solution:
             
         return res
 ```
+
+[Counting Bits](https://leetcode.com/problems/counting-bits/)
+
+Given an integer n, return an array ans of length n + 1 such that for each i (0 <= i <= n), ans[i] is the number of 1's in the binary representation of i.
+
+
+Example 1:
+
+Input: n = 2
+Output: [0,1,1]
+Explanation:
+0 --> 0
+1 --> 1
+2 --> 10
+Example 2:
+
+Input: n = 5
+Output: [0,1,1,2,1,2]
+Explanation:
+0 --> 0
+1 --> 1
+2 --> 10
+3 --> 11
+4 --> 100
+5 --> 101
+ 
+
+Constraints:
+
+0 <= n <= 105
+ 
+
+Follow up:
+
+It is very easy to come up with a solution with a runtime of O(n log n). Can you do it in linear time O(n) and possibly in a single pass?
+Can you do it without using any built-in function (i.e., like __builtin_popcount in C++)?
+
+Solution 1:
+
+In order to check how many 1-bits a number has we can simply keep subtracting powers of 2 that are smaller than our number and each subtracted number will correspond to a 1 bit. Note that we have to skip the powers that are bigger than our current number (these will correspond to 0s in the binary representation).
+
+```python
+class Solution:
+    def countBits(self, n: int) -> List[int]:
+        
+        num = 0
+        
+        res = [0]
+        
+        for i in range(1, n+1):
+            
+            #geatest power of 2 smaller than i
+            p = floor(math.log2(i)) 
+            num = i
+            counter = 0
+            
+            while num > 0:
+                if num >= 2**p:
+                    num -= 2**p
+                    counter += 1
+                p -= 1
+            
+            res.append(counter)
+            
+        return res
+```
+
+Solution 2 (Dynamic Programming):
+
+The problem with the solution above is that for each number it performs subtraction of all powers of 2 smaller than it, leading to O(nlogn) complexity. This procedure is unncecessarily repetitive since e.g. 15 - 8 = 7 so the number of 1-bits of 15 is 1 (corresponding to 8) plus the number of 1-bits of 7, which we already know assuming we are traversing the numbers in ascending order. Then rather than enumerating all powers of 2 each time we could reuse the solutions for preceding numbers:
+
+```python
+class Solution:
+    def countBits(self, n: int) -> List[int]:
+        
+        res = [0]*(n+1)
+        
+        for i in range(1, n+1):
+            
+            #greatest power of 2 smaller than i
+            p = floor(math.log2(i))
+            
+            res[i] = 1 if i - 2**p == 0 else (1 + res[i - 2**p])                
+            
+        return res
+```
+
+Now this algorithm has O(n) time complexity since for each number it performs a constant time operations of accessing a single element of array and writing to a single index of the array.
+
+Solution 3 (Dynamic Programming):
+
+Alternatively, we can use the relationship between i and i//2. Every number i has either the same number of digits as i//2 (if i is even e.g. 7 = (111) and 14 = (1110)) or the number of digits of i//2 plus 1 (if i is odd e.g. 15 = (1111) and 7 = (111)):
+
+
+```python
+class Solution:
+    def countBits(self, n: int) -> List[int]:
+        
+        res = [0] * (n + 1)
+        
+        for i in range(1, n + 1):
+            
+            # i // 2 is i >> 1 and i % 2 is i & 1
+            res[i] = res[i >> 1] + (i & 1) 
+            
+        return ans 
+```
+
+Solution 4 (Dynamic Programming):
+
+Final trick: i & i-1 has the same binary representation as i but without the least significant 1-bit (this isnight was used in the previous question)
+so the number of 1-bits of i is the same as the number of 1-bits of i&(i-1) plus 1 (to compensate for the removed 1-bit).
+
+```python
+class Solution:
+    def countBits(self, n: int) -> List[int]:
+        
+        res = [0] * (n + 1)
+        
+        for i in range(1, n + 1):
+            res[i] = res[i & (i - 1)] + 1
+            
+        return res
+```
+
